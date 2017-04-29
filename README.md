@@ -11,9 +11,12 @@ We target [Raspberry Pi 3](https://www.raspberrypi.org/products/raspberry-pi-3-m
 
 1. Clone this repo
   * `git clone git@github.com:bigearth/cloneos.git`
-2. Get dependencies
+2. Build the frontend
+  * `npm install`
+  * `npm run build`
+3. Get dependencies
   * `MIX_TARGET=rpi3 mix deps.get`
-3. Compile dependencies
+4. Compile dependencies
   * `MIX_TARGET=rpi3 mix deps.compile`
-4. Create firmware
+5. Create firmware
   * `MIX_TARGET=rpi3 mix firmware`
