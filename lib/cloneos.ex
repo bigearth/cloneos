@@ -1,5 +1,4 @@
-defmodule CloneOS.Application do
-  use Application
+defmodule CloneOS do
   require Logger
 
   def start(_type, _args) do

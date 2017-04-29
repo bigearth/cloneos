@@ -32,11 +32,11 @@ defmodule CloneOS.Mixfile do
   # applications which could cause the host to fail. Because of this, we only
   # invoke CloneOS.start/2 when running on a target.
   def application("host") do
-    [mod: {CloneOS.Application, []},
+    [mod: {CloneOS, []},
      extra_applications: [:logger]]
   end
   def application(_target) do
-    [mod: {CloneOS.Application, []},
+    [mod: {CloneOS, []},
      extra_applications: [:logger]]
   end
 
