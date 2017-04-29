@@ -4,12 +4,13 @@ defmodule CloneOS.Mixfile do
   @target System.get_env("MIX_TARGET") || "host"
   Mix.shell.info([:green, """
   Env
-    MIX_TARGET:   #{@target}
-    MIX_ENV:      #{Mix.env}
+    CloneOS version: 0.1.1
+    MIX_TARGET:      #{@target}
+    MIX_ENV:         #{Mix.env}
   """, :reset])
   def project do
     [app: :cloneos,
-     version: "0.1.0",
+     version: "0.1.1",
      elixir: "~> 1.4.0",
      target: @target,
      archives: [nerves_bootstrap: "~> 0.3.0"],
@@ -31,7 +32,8 @@ defmodule CloneOS.Mixfile do
   # applications which could cause the host to fail. Because of this, we only
   # invoke CloneOS.start/2 when running on a target.
   def application("host") do
-    [extra_applications: [:logger]]
+    [mod: {CloneOS.Application, []},
+     extra_applications: [:logger]]
   end
   def application(_target) do
     [mod: {CloneOS.Application, []},
@@ -53,10 +55,19 @@ defmodule CloneOS.Mixfile do
   end
 
   # Specify target specific dependencies
-  def deps("host"), do: []
+  def deps("host") do
+    [
+      {:cowboy, "~> 1.1.2"},
+      {:plug, "~> 1.3.4"}
+    ]
+  end
   def deps(target) do
-    [{:nerves_runtime, "~> 0.1.0"},
-     {:"nerves_system_#{target}", "~> 0.11.0", runtime: false}]
+    [
+      {:nerves_runtime, "~> 0.1.0"},
+      {:"nerves_system_#{target}", "~> 0.11.0", runtime: false},
+      {:cowboy, "~> 1.1.1"},
+      {:plug, "~> 1.3.4"}
+    ]
   end
 
   # We do not invoke the Nerves Env when running on the Host
