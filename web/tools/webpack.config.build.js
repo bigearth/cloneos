@@ -2,7 +2,14 @@ var webpack = require('webpack');
 var resolve = require('path').resolve;
 
 module.exports = {
-  entry: "./web/markup/index.html",
+  resolve: {
+    alias: {
+      'react': 'react-lite',
+      'react-dom': 'react-lite'
+    },
+    extensions: [".js", ".ts", ".json", ".tsx", ".css", ".scss"]
+  },
+  entry: "./web/ts/entry.tsx",
   devtool: "source-map",
   output: {
     path: resolve("./priv/static/"),
@@ -11,7 +18,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.html?$/, loader: "html-loader" }
+      { test: /\.tsx?$/, loader: "ts-loader" }
     ]
   }
 }
