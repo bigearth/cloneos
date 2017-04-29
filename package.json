@@ -1,0 +1,30 @@
+{
+  "name": "cloneos",
+  "version": "0.1.1",
+  "description": "The brains of the Clone.",
+  "dependencies": {
+    "html-loader": "^0.4.5",
+    "webpack": "^2.2.0-rc.3"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "node_modules/webpack/bin/webpack.js --config web/tools/webpack.config.build.js --display-error-details --colors",
+    "watch": "node_modules/webpack/bin/webpack.js --watch --config web/tools/webpack.config.watch.js --display-error-details --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigearth/cloneos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bigearth/cloneos/issues"
+  },
+  "homepage": "https://github.com/bigearth/cloneos#readme",
+  "devDependencies": {
+    "html-loader": "^0.4.5"
+  }
+}
