@@ -53,7 +53,8 @@ defmodule CloneOS.Mixfile do
   # common for test, prod, and dev
   defp applications do
     [
-      :logger
+      :logger,
+      :httpoison
     ]
   end
 
@@ -75,7 +76,9 @@ defmodule CloneOS.Mixfile do
   # Type "mix help deps" for more examples and options
   def deps do
     [
-      {:nerves, "~> 0.5.1", runtime: false}] ++
+      {:nerves, "~> 0.5.1"},
+      {:httpoison, github: "edgurgel/httpoison", override: true}
+      ] ++
     deps(@target)
   end
 
@@ -88,8 +91,9 @@ defmodule CloneOS.Mixfile do
   end
   def deps(target) do
     [
-      {:nerves_runtime, "~> 0.1.0"},
+      {:nerves_runtime, github: "nerves-project/nerves_runtime", override: true},
       {:"nerves_system_#{target}", "~> 0.11.0", runtime: false},
+      {:nerves_lib, github: "nerves-project/nerves_lib"}, # this has a good uuid
       {:nerves_interim_wifi, github: "nerves-project/nerves_interim_wifi"},
       {:cowboy, "~> 1.1.1"},
       {:plug, "~> 1.3.4"}
