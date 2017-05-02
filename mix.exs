@@ -1,6 +1,7 @@
 defmodule CloneOS.Mixfile do
   use Mix.Project
 
+  require Logger
   @target System.get_env("MIX_TARGET") || "host"
   @version Path.join(__DIR__, "VERSION") |> File.read! |> String.strip
 
@@ -39,20 +40,29 @@ defmodule CloneOS.Mixfile do
 
   # Configuration for the OTP application.
   #
-  # Type `mix help compile.app` for more information.
-  def application, do: application(@target)
 
   # Specify target specific application configurations
   # It is common that the application start function will start and supervise
   # applications which could cause the host to fail. Because of this, we only
   # invoke CloneOS.start/2 when running on a target.
-  def application("host") do
+  def application do
     [mod: {CloneOS, []},
-     extra_applications: [:logger]]
+     extra_applications: applications() ++ applications(@target)]
   end
-  def application(_target) do
-    [mod: {CloneOS, []},
-     extra_applications: [:logger]]
+
+  # common for test, prod, and dev
+  defp applications do
+    Logger.info ">>igurator init!"
+    [
+      :logger
+    ]
+  end
+
+  defp applications("host"), do: []
+  defp applications(_system) do
+    [
+      :nerves_interim_wifi
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -65,7 +75,8 @@ defmodule CloneOS.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   def deps do
-    [{:nerves, "~> 0.5.0", runtime: false}] ++
+    [
+      {:nerves, "~> 0.5.1", runtime: false}] ++
     deps(@target)
   end
 
@@ -80,6 +91,7 @@ defmodule CloneOS.Mixfile do
     [
       {:nerves_runtime, "~> 0.1.0"},
       {:"nerves_system_#{target}", "~> 0.11.0", runtime: false},
+      {:nerves_interim_wifi, github: "nerves-project/nerves_interim_wifi"},
       {:cowboy, "~> 1.1.1"},
       {:plug, "~> 1.3.4"}
     ]
