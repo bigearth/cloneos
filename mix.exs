@@ -2,17 +2,25 @@ defmodule CloneOS.Mixfile do
   use Mix.Project
 
   @target System.get_env("MIX_TARGET") || "host"
+  @version Path.join(__DIR__, "VERSION") |> File.read! |> String.strip
+
+  defp commit() do
+    {t,_} = System.cmd("git", ["log", "--pretty=format:%h", "-1"])
+    t
+  end
+
   Mix.shell.info([:green, """
   Env
-    CloneOS version: 0.1.1
     MIX_TARGET:      #{@target}
     MIX_ENV:         #{Mix.env}
   """, :reset])
   def project do
     [app: :cloneos,
-     version: "0.1.1",
+     description: "The Brains of Clone",
+     version: "0.1.2",
      elixir: "~> 1.4.0",
      target: @target,
+     commit: commit(),
      archives: [nerves_bootstrap: "~> 0.3.0"],
      deps_path: "deps/#{@target}",
      build_path: "_build/#{@target}",
