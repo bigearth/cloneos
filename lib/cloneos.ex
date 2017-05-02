@@ -20,7 +20,7 @@ defmodule CloneOS do
 
   def init(_args) do
     children = [
-      Plug.Adapters.Cowboy.child_spec(:http, CloneOS.Configurator.Router, [], port: 8080)
+      supervisor(CloneOS.Configurator, [], restart: :permanent)
     ]
     opts = [strategy: :one_for_one]
     supervise(children, opts)
