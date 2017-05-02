@@ -12,6 +12,5 @@
 erl_crash.dump
 
 node_modules
-priv/static/index.html
 priv/static/bundle.js
 priv/static/bundle.js.map
