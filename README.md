@@ -4,6 +4,7 @@ The brains of the Clone.
 
 * Written w/ the [nerves project](http://nerves-project.org/) and [Elixir](http://elixir-lang.org/).
 * Inspired by [FarmbotOS](https://github.com/FarmBot/farmbot_os).
+* Uses [Marlin Firmware](http://marlinfw.org/)
 
 ## Steps
 
