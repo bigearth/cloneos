@@ -52,7 +52,6 @@ defmodule CloneOS.Mixfile do
 
   # common for test, prod, and dev
   defp applications do
-    Logger.info ">>igurator init!"
     [
       :logger
     ]
