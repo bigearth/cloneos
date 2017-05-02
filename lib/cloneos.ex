@@ -13,13 +13,16 @@ defmodule CloneOS do
   """
   def start(type, args)
   def start(_, _args) do
-    Logger.info ">> Booting CloneOS version: #{@version} - #{@commit}"
+    Logger.info ">> Booting CloneOS by EARTH version: #{@version} - #{@commit}"
+
+    Supervisor.start_link(__MODULE__, [], name: CloneOS.Supervisor)
+  end
+
+  def init(_args) do
     children = [
       Plug.Adapters.Cowboy.child_spec(:http, CloneOS.Configurator.Router, [], port: 8080)
     ]
-
-    Logger.info "Started application"
-
-    Supervisor.start_link(children, strategy: :one_for_one)
+    opts = [strategy: :one_for_one]
+    supervise(children, opts)
   end
 end

@@ -17,8 +17,9 @@ defmodule CloneOS.Mixfile do
   def project do
     [app: :cloneos,
      description: "The Brains of Clone",
-     version: "0.1.2",
+     version: @version,
      elixir: "~> 1.4.0",
+     package: package(),
      target: @target,
      commit: commit(),
      archives: [nerves_bootstrap: "~> 0.3.0"],
@@ -28,6 +29,12 @@ defmodule CloneOS.Mixfile do
      start_permanent: Mix.env == :prod,
      aliases: aliases(@target),
      deps: deps()]
+  end
+
+  def package do
+    [name: "CloneOS",
+    maintainers: "EARTH",
+    licenses: "GPLv2"]
   end
 
   # Configuration for the OTP application.
