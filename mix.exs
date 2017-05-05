@@ -75,24 +75,22 @@ defmodule CloneOS.Mixfile do
   # Type "mix help deps" for more examples and options
   def deps do
     [
-      {:nerves, "~> 0.5.1", runtime: false}] ++
+      {:nerves, "~> 0.5.1", runtime: false},
+      {:poison, "~> 3.0"},
+      {:httpoison, github: "edgurgel/httpoison", override: true},
+      {:cowboy, "~> 1.1.2"},
+      {:plug, "~> 1.3.4"}
+    ] ++
     deps(@target)
   end
 
   # Specify target specific dependencies
-  def deps("host") do
-    [
-      {:cowboy, "~> 1.1.2"},
-      {:plug, "~> 1.3.4"}
-    ]
-  end
+  def deps("host"), do: []
   def deps(target) do
     [
       {:nerves_runtime, "~> 0.1.0"},
       {:"nerves_system_#{target}", "~> 0.11.0", runtime: false},
-      {:nerves_interim_wifi, github: "nerves-project/nerves_interim_wifi"},
-      {:cowboy, "~> 1.1.1"},
-      {:plug, "~> 1.3.4"}
+      {:nerves_interim_wifi, github: "nerves-project/nerves_interim_wifi"}
     ]
   end
 
