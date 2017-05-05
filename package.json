@@ -27,7 +27,8 @@
     "typescript": "^2.1.4",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.0-rc.3",
-    "webpack-uglify-js-plugin": "^1.1.9"
+    "webpack-uglify-js-plugin": "^1.1.9",
+    "yarn": "^0.23.4"
   },
   "main": "index.js",
   "directories": {
