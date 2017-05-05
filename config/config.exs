@@ -4,6 +4,10 @@
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
 use Mix.Config
+config :cloneos,
+  path: "/tmp",
+  config_file_name: "default_config.json",
+  tty: "/dev/tnt1"
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

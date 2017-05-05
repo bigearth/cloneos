@@ -1,4 +1,8 @@
 defmodule CloneOS.Configurator.Router do
+  @moduledoc """
+    Routes incoming connections.
+  """
+  alias CloneOS.System.FS.ConfigStorage
   use Plug.Router
   require Logger
 
@@ -32,10 +36,10 @@ defmodule CloneOS.Configurator.Router do
     Logger.info ">> is installing a firmware update. "
       <> " I may act weird for a moment", channels: [:toast]
 
-    # pid = Process.whereis(Farmbot.Serial.Handler)
+    # pid = Process.whereis(CloneOS.Serial.Handler)
     #
     # if pid do
-    #   GenServer.cast(Farmbot.Serial.Handler, {:update_fw, file, self()})
+    #   GenServer.cast(CloneOS.Serial.Handler, {:update_fw, file, self()})
     #   errrm.(conn)
     # else
     #   Logger.info "doing some magic..."
@@ -45,7 +49,7 @@ defmodule CloneOS.Configurator.Router do
     #   case herp do
     #     [tty] ->
     #       Logger.info "magic complete!"
-    #       Farmbot.Serial.Handler.flash_firmware(tty, file, self())
+    #       CloneOS.Serial.Handler.flash_firmware(tty, file, self())
     #       errrm.(conn)
     #     _ ->
     #       Logger.warn "Please only have one serial device when updating firmware"
