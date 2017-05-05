@@ -1,21 +1,29 @@
 defmodule CloneOS.Configurator do
   @moduledoc """
-    A plug web application with a mini REST interface.
+    A plug web application with a mini REST interface, and websocket handler.
   """
+
   use Supervisor
   alias CloneOS.Configurator.Router
+  alias CloneOS.Configurator.SocketHandler
+  alias Plug.Adapters.Cowboy.Handler, as: CowboyHandler
   require Logger
 
-  @port Application.get_env(:cloneos, :configurator_port, 4000)
+  @port Application.get_env(:farmbot, :configurator_port, 4000)
 
   def init([]) do
     Logger.info ">> Configurator init!"
     children = [
-      Plug.Adapters.Cowboy.child_spec(:http, Router, [], port: @port),
-    ]
+      Plug.Adapters.Cowboy.child_spec(:http, Router, [], port: @port,
+        dispatch: [dispatch()]),
+     ]
     opts = [strategy: :one_for_one]
     supervise(children, opts)
   end
 
   def start_link, do: Supervisor.start_link(__MODULE__, [], name: __MODULE__)
+
+  defp dispatch do
+    {:_, [{"/ws", SocketHandler, []}, {:_, CowboyHandler, {Router, []}}]}
+  end
 end
